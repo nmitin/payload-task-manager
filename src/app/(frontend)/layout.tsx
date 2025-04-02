@@ -2,6 +2,7 @@ import React from 'react'
 import './styles.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navigation } from '@/components/Navigation'
+import { AuthProvider } from '@/lib/auth-context'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -20,13 +21,17 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
-            <Navigation />
-            <main className="flex-1">{children}</main>
-            <footer className="border-t py-4 text-center text-sm text-muted-foreground">
-              <div className="container mx-auto">© {new Date().getFullYear()} Менеджер задач</div>
-            </footer>
-          </div>
+          <AuthProvider>
+            <div className="min-h-screen flex flex-col">
+              <Navigation />
+              <main className="flex-1">{children}</main>
+              <footer className="border-t py-4 text-center text-sm text-muted-foreground">
+                <div className="container mx-auto">
+                  © {new Date().getFullYear()} Менеджер задач
+                </div>
+              </footer>
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
